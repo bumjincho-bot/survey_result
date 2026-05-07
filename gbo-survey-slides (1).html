@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBO 조직 AI 활용 현황 설문 분석</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #0f0f1a;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slideshow {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    padding: 60px 80px;
+    position: absolute;
+    top: 0; left: 0;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .slide.active { display: flex; flex-direction: column; justify-content: center; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 표지 */
+  .slide-cover {
+    background: linear-gradient(135deg, #1a1a3e 0%, #0f0f1a 60%, #1a2a1a 100%);
+    align-items: center;
+    text-align: center;
+  }
+  .slide-cover .tag {
+    background: rgba(99,202,134,0.15);
+    border: 1px solid #63ca86;
+    color: #63ca86;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    display: inline-block;
+  }
+  .slide-cover h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+  .slide-cover h1 span { color: #63ca86; }
+  .slide-cover .sub {
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 60px;
+  }
+  .stats-row {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px 36px;
+    text-align: center;
+  }
+  .stat-box .num { font-size: 36px; font-weight: 700; color: #63ca86; }
+  .stat-box .label { font-size: 13px; color: #888; margin-top: 4px; }
+
+  /* 공통 헤더 */
+  .slide-header { margin-bottom: 40px; }
+  .slide-num { font-size: 12px; color: #63ca86; letter-spacing: 2px; margin-bottom: 8px; }
+  .slide-title { font-size: 36px; font-weight: 700; }
+  .slide-title span { color: #63ca86; }
+  .divider { width: 48px; height: 3px; background: #63ca86; border-radius: 2px; margin-top: 12px; }
+
+  /* 슬라이드 2: 팀별 현황 */
+  .dept-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .dept-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .dept-card .dept-name { font-size: 13px; color: #aaa; margin-bottom: 6px; }
+  .dept-card .dept-count {
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(135deg, #63ca86, #a8f0c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .dept-card .dept-bar { height: 3px; background: #63ca86; border-radius: 2px; margin-top: 8px; }
+
+  /* 슬라이드 3: 비효율 원인 */
+  .pain-list { display: flex; flex-direction: column; gap: 14px; }
+  .pain-item { display: flex; align-items: center; gap: 16px; }
+  .pain-label { width: 180px; font-size: 14px; color: #fff; font-weight: 600; flex-shrink: 0; }
+  .pain-bar-wrap { flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; height: 32px; overflow: hidden; }
+  .pain-bar {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* 슬라이드 4: AI 현황 */
+  .big-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .big-stat {
+    background: rgba(99,202,134,0.06);
+    border: 1px solid rgba(99,202,134,0.2);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .big-stat .big-num { font-size: 52px; font-weight: 800; color: #63ca86; }
+  .big-stat .big-label { font-size: 14px; color: #cbd5e1; margin-top: 8px; line-height: 1.6; }
+
+  /* 슬라이드 5: 도구 비교 */
+  .tool-list { display: flex; flex-direction: column; gap: 20px; }
+  .tool-item { display: flex; align-items: center; gap: 20px; }
+  .tool-name { width: 120px; font-size: 15px; font-weight: 700; color: #e2e8f0; flex-shrink: 0; }
+  .tool-score-bar { flex: 1; background: rgba(255,255,255,0.06); border-radius: 8px; height: 36px; overflow: hidden; }
+  .tool-fill {
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .tool-score {
+    width: 60px; text-align: right; font-size: 22px; font-weight: 800;
+    background: linear-gradient(135deg, #63ca86, #a8f0c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* 슬라이드 6: 니즈 */
+  .want-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .want-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .want-card .want-icon { font-size: 28px; margin-bottom: 10px; }
+  .want-card .want-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #a8f0c6; }
+  .want-card .want-desc { font-size: 12px; color: #888; line-height: 1.6; }
+
+  /* 슬라이드 7: 로드맵 */
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .phase { border-radius: 16px; padding: 24px; }
+  .phase-now { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); }
+  .phase-mid { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.3); }
+  .phase-long { background: rgba(99,202,134,0.08); border: 1px solid rgba(99,202,134,0.3); }
+  .phase-label { font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 12px; }
+  .phase-now .phase-label { color: #ef4444; }
+  .phase-mid .phase-label { color: #eab308; }
+  .phase-long .phase-label { color: #63ca86; }
+  .phase h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .phase-now h3 { color: #fca5a5; }
+  .phase-mid h3 { color: #fde68a; }
+  .phase-long h3 { color: #a8f0c6; }
+  .phase ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .phase ul li { font-size: 13px; color: #ccc; padding-left: 16px; position: relative; line-height: 1.5; }
+  .phase ul li::before { content: '▸'; position: absolute; left: 0; color: #555; }
+
+  /* 네비게이션 */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 40px;
+    padding: 10px 20px;
+  }
+  .nav button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .nav button:hover { background: rgba(255,255,255,0.1); }
+  .nav button:disabled { color: #444; cursor: default; }
+  .page-indicator { font-size: 13px; color: #888; min-width: 60px; text-align: center; }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #444; cursor: pointer; transition: all 0.2s; }
+  .dot.active { background: #63ca86; width: 18px; border-radius: 3px; }
+
+  .key-hint { position: fixed; bottom: 32px; right: 40px; font-size: 11px; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="slideshow">
+
+  <!-- 슬라이드 1: 표지 -->
+  <div class="slide slide-cover active">
+    <div class="tag">GBO INTERNAL REPORT · 2026.04</div>
+    <h1>GBO 조직 <span>AI 활용 현황</span><br>설문 분석</h1>
+    <p class="sub">조직 내 업무 효율화 및 AI 활용 방안 마련을 위한 설문</p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="num">19</div>
+        <div class="label">총 응답자</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">8</div>
+        <div class="label">참여 팀</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">79%</div>
+        <div class="label">매일 AI 사용</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">63%</div>
+        <div class="label">커스텀 AI 보유</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 슬라이드 2: 응답자 현황 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">01 · 응답자 현황</div>
+      <div class="slide-title">팀별 <span>참여 인원</span></div>
+      <div class="divider"></div>
+    </div>
+    <div class="dept-grid">
+      <div class="dept-card">
+        <div class="dept-name">BI</div>
+        <div class="dept-count">5명</div>
+        <div class="dept-bar" style="width:100%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">DA Supply</div>
+        <div class="dept-count">4명</div>
+        <div class="dept-bar" style="width:80%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">DA Demand</div>
+        <div class="dept-count">3명</div>
+        <div class="dept-bar" style="width:60%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">GBO 공통</div>
+        <div class="dept-count">2명</div>
+        <div class="dept-bar" style="width:40%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">Global Initiative</div>
+        <div class="dept-count">2명</div>
+        <div class="dept-bar" style="width:40%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">ACP</div>
+        <div class="dept-count">1명</div>
+        <div class="dept-bar" style="width:20%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">BSP</div>
+        <div class="dept-count">1명</div>
+        <div class="dept-bar" style="width:20%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">IM</div>
+        <div class="dept-count">1명</div>
+        <div class="dept-bar" style="width:20%"></div>
+      </div>
+    </div>
+    <p style="color:#555; font-size:13px;">* 리더 포함 19명 응답 · 팀별 1~5명 참여</p>
+  </div>
+
+  <!-- 슬라이드 3: 비효율 원인 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">02 · 비효율 원인</div>
+      <div class="slide-title">업무에서 느끼는 <span>주요 불편함</span></div>
+      <div class="divider"></div>
+    </div>
+    <div class="pain-list">
+      <div class="pain-item">
+        <div class="pain-label">데이터 분산·파편화</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:100%; background: linear-gradient(90deg, #ef4444, #f97316);">15건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">반복 수작업·보고</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:73%; background: linear-gradient(90deg, #f97316, #eab308);">11건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">정보 검색 비효율</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:60%; background: linear-gradient(90deg, #eab308, #84cc16);">9건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">커뮤니케이션 오버헤드</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:47%; background: linear-gradient(90deg, #84cc16, #22c55e);">7건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">문서화 부담</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:33%; background: linear-gradient(90deg, #22c55e, #63ca86);">5건</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 슬라이드 4: AI 사용 현황 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">03 · AI 사용 현황</div>
+      <div class="slide-title">조직 AI <span>활용 수준</span></div>
+      <div class="divider"></div>
+    </div>
+    <div class="big-stats">
+      <div class="big-stat">
+        <div class="big-num">79%</div>
+        <div class="big-label">매일 AI 도구를<br>사용하는 응답자</div>
+      </div>
+      <div class="big-stat">
+        <div class="big-num">63%</div>
+        <div class="big-label">커스텀 AI/GPT를<br>직접 보유·운영</div>
+      </div>
+      <div class="big-stat">
+        <div class="big-num">4.1</div>
+        <div class="big-label">ChatGPT 평균<br>활용 빈도 (5점 만점)</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px 28px;">
+      <p style="font-size:13px; color:#888; line-height:1.8;">
+        인사이트 — 조직 구성원 대부분이 이미 AI를 일상적으로 사용 중이며, 절반 이상이 자체 커스텀 AI를 보유한 만큼 <span style="color:#63ca86">활용 성숙도가 높은 조직</span>임.
+        개인 활용 단계를 넘어 <span style="color:#63ca86">조직 공유 자산화</span>가 다음 단계.
+      </p>
+    </div>
+  </div>
+
+  <!-- 슬라이드 5: 도구 비교 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">04 · 도구 활용도</div>
+      <div class="slide-title">AI 도구별 <span>활용 빈도</span> 비교</div>
+      <div class="divider"></div>
+    </div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <div class="tool-name">ChatGPT</div>
+        <div class="tool-score-bar">
+          <div class="tool-fill" style="width:82%; background: linear-gradient(90deg, #10a37f, #1adf9a); color:#000;">가장 널리 사용</div>
+        </div>
+        <div class="tool-score">4.1</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Gemini</div>
+        <div class="tool-score-bar">
+          <div class="tool-fill" style="width:74%; background: linear-gradient(90deg, #4285f4, #61a0ff); color:#fff;">업무 보조</div>
+        </div>
+        <div class="tool-score">3.7</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">Claude</div>
+        <div class="tool-score-bar">
+          <div class="tool-fill" style="width:60%; background: linear-gradient(90deg, #c96442, #e07a58); color:#fff;">문서·분석</div>
+        </div>
+        <div class="tool-score">3.0</div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-name">NotebookLM</div>
+        <div class="tool-score-bar">
+          <div class="tool-fill" style="width:50%; background: linear-gradient(90deg, #5f6368, #9aa0a6); color:#fff;">리서치 요약</div>
+        </div>
+        <div class="tool-score">2.5</div>
+      </div>
+    </div>
+    <p style="color:#555; font-size:12px; margin-top:20px;">* 5점 만점 · 활용 빈도 평균 점수</p>
+  </div>
+
+  <!-- 슬라이드 6: 원하는 AI 작업 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">05 · 니즈 분석</div>
+      <div class="slide-title">구성원이 원하는 <span>AI 자동화</span></div>
+      <div class="divider"></div>
+    </div>
+    <div class="want-grid">
+      <div class="want-card">
+        <div class="want-icon">📝</div>
+        <div class="want-title">회의록 자동 작성</div>
+        <div class="want-desc">회의 내용을 자동으로 요약·정리하여 Confluence에 기록</div>
+      </div>
+      <div class="want-card">
+        <div class="want-icon">🔍</div>
+        <div class="want-title">내부 문서 검색</div>
+        <div class="want-desc">Slack + Wiki 통합 검색으로 흩어진 정보를 즉시 탐색</div>
+      </div>
+      <div class="want-card">
+        <div class="want-icon">📊</div>
+        <div class="want-title">데이터 지표 질의</div>
+        <div class="want-desc">자연어로 데이터 분석 결과를 조회하는 쿼리 에이전트</div>
+      </div>
+      <div class="want-card">
+        <div class="want-icon">🌐</div>
+        <div class="want-title">경쟁사 리서치 자동화</div>
+        <div class="want-desc">정기적으로 경쟁사 동향을 수집·요약하여 리포트 생성</div>
+      </div>
+      <div class="want-card">
+        <div class="want-icon">💬</div>
+        <div class="want-title">내부 FAQ 봇</div>
+        <div class="want-desc">Slack에서 자주 묻는 정책·프로세스 질문에 자동 응답</div>
+      </div>
+      <div class="want-card">
+        <div class="want-icon">🔄</div>
+        <div class="want-title">Slack→Wiki 변환</div>
+        <div class="want-desc">중요한 Slack 스레드를 자동으로 Wiki 문서로 정리</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 슬라이드 7: 로드맵 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">06 · 추천 로드맵</div>
+      <div class="slide-title">BI팀 AI 툴 <span>제작 우선순위</span></div>
+      <div class="divider"></div>
+    </div>
+    <div class="roadmap">
+      <div class="phase phase-now">
+        <div class="phase-label">QUICK WIN · 1~2주</div>
+        <h3>즉시 제작 가능</h3>
+        <ul>
+          <li>Slack → Wiki 자동 변환기</li>
+          <li>회의록 자동 생성기</li>
+          <li>팀 프롬프트 가이드 문서</li>
+        </ul>
+      </div>
+      <div class="phase phase-mid">
+        <div class="phase-label">MID-TERM · 2~4주</div>
+        <h3>단기 개발 과제</h3>
+        <ul>
+          <li>내부 FAQ Slack 봇</li>
+          <li>경쟁사 리서치 자동화</li>
+          <li>데이터 지표 쿼리 에이전트</li>
+        </ul>
+      </div>
+      <div class="phase phase-long">
+        <div class="phase-label">LONG-TERM · 1~3개월</div>
+        <h3>중장기 인프라</h3>
+        <ul>
+          <li>Slack + Wiki 통합 RAG 검색</li>
+          <li>AI 보안 가이드라인 수립</li>
+          <li>조직 공유 AI 허브 구축</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 네비게이션 -->
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <span class="page-indicator" id="pageIndicator">1 / 7</span>
+  <button id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
+</div>
+
+<div class="key-hint">← → 키로 이동</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsEl = document.getElementById('dots');
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    document.getElementById('pageIndicator').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < total) goTo(next);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+</script>
+</body>
+</html>
