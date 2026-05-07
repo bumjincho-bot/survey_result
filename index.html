@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GBO 조직 AI 활용 현황 설문 분석</title>
+<title>GBO 조직 AI 활용 현황 설문 분석 - 확장판</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -25,7 +25,7 @@
     display: none;
     width: 100%;
     height: 100vh;
-    padding: 60px 80px;
+    padding: 40px 60px;
     position: absolute;
     top: 0; left: 0;
     animation: fadeIn 0.4s ease;
@@ -85,47 +85,47 @@
 
   /* 공통 헤더 */
   .slide-header { margin-bottom: 40px; }
-  .slide-num { font-size: 12px; color: #63ca86; letter-spacing: 2px; margin-bottom: 8px; }
-  .slide-title { font-size: 36px; font-weight: 700; }
+  .slide-num { font-size: 17px; color: #63ca86; letter-spacing: 2px; margin-bottom: 8px; }
+  .slide-title { font-size: 43px; font-weight: 700; }
   .slide-title span { color: #63ca86; }
   .divider { width: 48px; height: 3px; background: #63ca86; border-radius: 2px; margin-top: 12px; }
 
   /* 슬라이드 2: 팀별 현황 */
   .dept-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+    margin-bottom: 38px;
   }
   .dept-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
-    padding: 16px;
+    padding: 19px;
     text-align: center;
   }
-  .dept-card .dept-name { font-size: 13px; color: #aaa; margin-bottom: 6px; }
+  .dept-card .dept-name { font-size: 16px; color: #aaa; margin-bottom: 7px; }
   .dept-card .dept-count {
-    font-size: 24px; font-weight: 700;
+    font-size: 29px; font-weight: 700;
     background: linear-gradient(135deg, #63ca86, #a8f0c6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .dept-card .dept-bar { height: 3px; background: #63ca86; border-radius: 2px; margin-top: 8px; }
+  .dept-card .dept-bar { height: 4px; background: #63ca86; border-radius: 2px; margin-top: 10px; }
 
   /* 슬라이드 3: 비효율 원인 */
-  .pain-list { display: flex; flex-direction: column; gap: 14px; }
-  .pain-item { display: flex; align-items: center; gap: 16px; }
-  .pain-label { width: 180px; font-size: 14px; color: #fff; font-weight: 600; flex-shrink: 0; }
-  .pain-bar-wrap { flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; height: 32px; overflow: hidden; }
+  .pain-list { display: flex; flex-direction: column; gap: 20px; }
+  .pain-item { display: flex; align-items: center; gap: 24px; }
+  .pain-label { width: 240px; font-size: 19px; color: #fff; font-weight: 600; flex-shrink: 0; }
+  .pain-bar-wrap { flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; height: 43px; overflow: hidden; }
   .pain-bar {
     height: 100%;
     border-radius: 6px;
     display: flex;
     align-items: center;
-    padding-left: 14px;
-    font-size: 13px;
+    padding-left: 19px;
+    font-size: 18px;
     font-weight: 600;
   }
 
@@ -133,35 +133,35 @@
   .big-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 29px;
+    margin-bottom: 38px;
   }
   .big-stat {
     background: rgba(99,202,134,0.06);
     border: 1px solid rgba(99,202,134,0.2);
     border-radius: 20px;
-    padding: 32px 24px;
+    padding: 38px 29px;
     text-align: center;
   }
-  .big-stat .big-num { font-size: 52px; font-weight: 800; color: #63ca86; }
-  .big-stat .big-label { font-size: 14px; color: #cbd5e1; margin-top: 8px; line-height: 1.6; }
+  .big-stat .big-num { font-size: 62px; font-weight: 800; color: #63ca86; }
+  .big-stat .big-label { font-size: 19px; color: #cbd5e1; margin-top: 10px; line-height: 1.6; }
 
   /* 슬라이드 5: 도구 비교 */
-  .tool-list { display: flex; flex-direction: column; gap: 20px; }
-  .tool-item { display: flex; align-items: center; gap: 20px; }
-  .tool-name { width: 120px; font-size: 15px; font-weight: 700; color: #e2e8f0; flex-shrink: 0; }
-  .tool-score-bar { flex: 1; background: rgba(255,255,255,0.06); border-radius: 8px; height: 36px; overflow: hidden; }
+  .tool-list { display: flex; flex-direction: column; gap: 24px; }
+  .tool-item { display: flex; align-items: center; gap: 24px; }
+  .tool-name { width: 144px; font-size: 18px; font-weight: 700; color: #e2e8f0; flex-shrink: 0; }
+  .tool-score-bar { flex: 1; background: rgba(255,255,255,0.06); border-radius: 8px; height: 43px; overflow: hidden; }
   .tool-fill {
     height: 100%;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: 0 14px;
+    padding: 0 17px;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 16px;
   }
   .tool-score {
-    width: 60px; text-align: right; font-size: 22px; font-weight: 800;
+    width: 72px; text-align: right; font-size: 26px; font-weight: 800;
     background: linear-gradient(135deg, #63ca86, #a8f0c6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -172,17 +172,143 @@
   .want-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 19px;
   }
   .want-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 20px;
+    padding: 24px;
   }
-  .want-card .want-icon { font-size: 28px; margin-bottom: 10px; }
-  .want-card .want-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #a8f0c6; }
-  .want-card .want-desc { font-size: 12px; color: #888; line-height: 1.6; }
+  .want-card .want-icon { font-size: 34px; margin-bottom: 12px; }
+  .want-card .want-title { font-size: 19px; font-weight: 700; margin-bottom: 7px; color: #a8f0c6; }
+  .want-card .want-desc { font-size: 17px; color: #888; line-height: 1.6; }
+
+  /* 팀별 분석 - 공통 특성 */
+  .common-insights {
+    background: rgba(99,202,134,0.06);
+    border: 1px solid rgba(99,202,134,0.2);
+    border-radius: 20px;
+    padding: 34px;
+    margin-bottom: 38px;
+  }
+  .common-insights h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #63ca86;
+    margin-bottom: 19px;
+  }
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .insight-item h4 {
+    font-size: 17px;
+    color: #a8f0c6;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .insight-item p {
+    font-size: 16px;
+    color: #cbd5e1;
+    line-height: 1.5;
+  }
+
+  /* 팀별 분석 - 개별 팀 */
+  .team-analysis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 19px;
+    margin-bottom: 29px;
+  }
+  .team-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    height: fit-content;
+  }
+  .team-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #63ca86;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .team-badge {
+    background: rgba(99,202,134,0.15);
+    color: #63ca86;
+    font-size: 12px;
+    padding: 4px 7px;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+  .team-content {
+    display: grid;
+    gap: 12px;
+  }
+  .content-item {
+    display: flex;
+    gap: 12px;
+  }
+  .content-label {
+    width: 84px;
+    font-size: 13px;
+    color: #888;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .content-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.4;
+  }
+
+  /* 방향성 카드 */
+  .direction-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .direction-card {
+    background: rgba(99,202,134,0.06);
+    border: 1px solid rgba(99,202,134,0.2);
+    border-radius: 20px;
+    padding: 32px 28px;
+  }
+  .direction-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #63ca86;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .direction-icon { font-size: 24px; }
+  .direction-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .direction-list li {
+    font-size: 14px;
+    color: #cbd5e1;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .direction-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #63ca86;
+    font-weight: 700;
+  }
 
   /* 슬라이드 7: 로드맵 */
   .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -235,6 +361,23 @@
   .dot.active { background: #63ca86; width: 18px; border-radius: 3px; }
 
   .key-hint { position: fixed; bottom: 32px; right: 40px; font-size: 11px; color: #444; }
+
+  /* 인사이트 박스 */
+  .insight-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-top: 20px;
+  }
+  .insight-box p {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.8;
+  }
+  .insight-box .highlight {
+    color: #63ca86;
+  }
 </style>
 </head>
 <body>
@@ -243,8 +386,8 @@
 
   <!-- 슬라이드 1: 표지 -->
   <div class="slide slide-cover active">
-    <div class="tag">GBO INTERNAL REPORT · 2026.04</div>
-    <h1>GBO 조직 <span>AI 활용 현황</span><br>설문 분석</h1>
+    <div class="tag">GBO INTERNAL REPORT · 2026.05</div>
+    <h1>GBO 조직 <span>AI 활용 현황</span><br>설문 분석 - 확장판</h1>
     <p class="sub">조직 내 업무 효율화 및 AI 활용 방안 마련을 위한 설문</p>
     <div class="stats-row">
       <div class="stat-box">
@@ -275,44 +418,29 @@
     </div>
     <div class="dept-grid">
       <div class="dept-card">
-        <div class="dept-name">BI</div>
+        <div class="dept-name">DA 전체</div>
         <div class="dept-count">5명</div>
         <div class="dept-bar" style="width:100%"></div>
       </div>
       <div class="dept-card">
-        <div class="dept-name">DA Supply</div>
+        <div class="dept-name">ACP</div>
         <div class="dept-count">4명</div>
         <div class="dept-bar" style="width:80%"></div>
       </div>
       <div class="dept-card">
-        <div class="dept-name">DA Demand</div>
-        <div class="dept-count">3명</div>
-        <div class="dept-bar" style="width:60%"></div>
-      </div>
-      <div class="dept-card">
-        <div class="dept-name">GBO 공통</div>
-        <div class="dept-count">2명</div>
-        <div class="dept-bar" style="width:40%"></div>
-      </div>
-      <div class="dept-card">
-        <div class="dept-name">Global Initiative</div>
-        <div class="dept-count">2명</div>
-        <div class="dept-bar" style="width:40%"></div>
-      </div>
-      <div class="dept-card">
-        <div class="dept-name">ACP</div>
-        <div class="dept-count">1명</div>
-        <div class="dept-bar" style="width:20%"></div>
-      </div>
-      <div class="dept-card">
-        <div class="dept-name">BSP</div>
-        <div class="dept-count">1명</div>
-        <div class="dept-bar" style="width:20%"></div>
+        <div class="dept-name">BI</div>
+        <div class="dept-count">4명</div>
+        <div class="dept-bar" style="width:80%"></div>
       </div>
       <div class="dept-card">
         <div class="dept-name">IM</div>
-        <div class="dept-count">1명</div>
-        <div class="dept-bar" style="width:20%"></div>
+        <div class="dept-count">4명</div>
+        <div class="dept-bar" style="width:80%"></div>
+      </div>
+      <div class="dept-card">
+        <div class="dept-name">BSP</div>
+        <div class="dept-count">2명</div>
+        <div class="dept-bar" style="width:40%"></div>
       </div>
     </div>
     <p style="color:#555; font-size:13px;">* 리더 포함 19명 응답 · 팀별 1~5명 참여</p>
@@ -329,33 +457,37 @@
       <div class="pain-item">
         <div class="pain-label">데이터 분산·파편화</div>
         <div class="pain-bar-wrap">
-          <div class="pain-bar" style="width:100%; background: linear-gradient(90deg, #ef4444, #f97316);">15건</div>
+          <div class="pain-bar" style="width:100%; background: linear-gradient(90deg, #ef4444, #f97316);">19건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">표준화 부족</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:84%; background: linear-gradient(90deg, #f97316, #eab308);">16건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">작업 시간 과다</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:74%; background: linear-gradient(90deg, #eab308, #84cc16);">14건</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-label">부서간 소통 복잡성</div>
+        <div class="pain-bar-wrap">
+          <div class="pain-bar" style="width:58%; background: linear-gradient(90deg, #84cc16, #22c55e);">11건</div>
         </div>
       </div>
       <div class="pain-item">
         <div class="pain-label">반복 수작업·보고</div>
         <div class="pain-bar-wrap">
-          <div class="pain-bar" style="width:73%; background: linear-gradient(90deg, #f97316, #eab308);">11건</div>
+          <div class="pain-bar" style="width:47%; background: linear-gradient(90deg, #22c55e, #63ca86);">9건</div>
         </div>
       </div>
-      <div class="pain-item">
-        <div class="pain-label">정보 검색 비효율</div>
-        <div class="pain-bar-wrap">
-          <div class="pain-bar" style="width:60%; background: linear-gradient(90deg, #eab308, #84cc16);">9건</div>
-        </div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-label">커뮤니케이션 오버헤드</div>
-        <div class="pain-bar-wrap">
-          <div class="pain-bar" style="width:47%; background: linear-gradient(90deg, #84cc16, #22c55e);">7건</div>
-        </div>
-      </div>
-      <div class="pain-item">
-        <div class="pain-label">문서화 부담</div>
-        <div class="pain-bar-wrap">
-          <div class="pain-bar" style="width:33%; background: linear-gradient(90deg, #22c55e, #63ca86);">5건</div>
-        </div>
-      </div>
+    </div>
+    <div class="insight-box">
+      <p><span class="highlight">공통 패턴</span> — 거의 모든 조직에서 "데이터나 자료가 여기저기 흩어져 있음"과 "정해진 형식이나 기준이 없음"을 언급.
+      <span class="highlight">데이터 거버넌스 개선</span>이 가장 시급한 과제로 식별됨.</p>
     </div>
   </div>
 
@@ -372,7 +504,7 @@
         <div class="big-label">매일 AI 도구를<br>사용하는 응답자</div>
       </div>
       <div class="big-stat">
-        <div class="big-num">63%</div>
+        <div class="big-num">58%</div>
         <div class="big-label">커스텀 AI/GPT를<br>직접 보유·운영</div>
       </div>
       <div class="big-stat">
@@ -380,10 +512,10 @@
         <div class="big-label">ChatGPT 평균<br>활용 빈도 (5점 만점)</div>
       </div>
     </div>
-    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px 28px;">
-      <p style="font-size:13px; color:#888; line-height:1.8;">
-        인사이트 — 조직 구성원 대부분이 이미 AI를 일상적으로 사용 중이며, 절반 이상이 자체 커스텀 AI를 보유한 만큼 <span style="color:#63ca86">활용 성숙도가 높은 조직</span>임.
-        개인 활용 단계를 넘어 <span style="color:#63ca86">조직 공유 자산화</span>가 다음 단계.
+    <div class="insight-box">
+      <p>
+        <span class="highlight">AI 활용 성숙도가 높은 조직</span> — 조직 구성원 대부분이 이미 AI를 일상적으로 사용 중이며, 절반 이상이 자체 커스텀 AI를 보유.
+        개인 활용 단계를 넘어 <span class="highlight">조직 공유 자산화</span>가 다음 단계.
       </p>
     </div>
   </div>
@@ -469,41 +601,137 @@
     </div>
   </div>
 
-  <!-- 슬라이드 7: 로드맵 -->
+  <!-- 슬라이드 7: 팀별 상세 분석 -->
   <div class="slide">
     <div class="slide-header">
-      <div class="slide-num">06 · 추천 로드맵</div>
-      <div class="slide-title">BI팀 AI 툴 <span>제작 우선순위</span></div>
+      <div class="slide-num">06 · 팀별 분석</div>
+      <div class="slide-title">팀별 <span>업무 특성</span> 및 AI 니즈</div>
       <div class="divider"></div>
     </div>
-    <div class="roadmap">
-      <div class="phase phase-now">
-        <div class="phase-label">QUICK WIN · 1~2주</div>
-        <h3>즉시 제작 가능</h3>
-        <ul>
-          <li>Slack → Wiki 자동 변환기</li>
-          <li>회의록 자동 생성기</li>
-          <li>팀 프롬프트 가이드 문서</li>
+
+    <div class="common-insights">
+      <h3>🔍 공통 특성</h3>
+      <div class="insight-grid">
+        <div class="insight-item">
+          <h4>AI 활용 저해 요인</h4>
+          <p>• 결과물이 기대에 못 미침<br>• 보안/정보 유출 우려<br>• AI에 넘길 데이터 정리 부족</p>
+        </div>
+        <div class="insight-item">
+          <h4>공통 비효율 원인</h4>
+          <p>• 데이터 파편화 (19건)<br>• 표준화 부족 (16건)<br>• 작업 시간 과다 (14건)</p>
+        </div>
+        <div class="insight-item">
+          <h4>BI팀 지원 요구사항</h4>
+          <p>• 커스텀 AI 툴 제작 및 배포<br>• AI 활용 교육 세션<br>• 활용 방안 상담</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-analysis">
+      <div class="team-card">
+        <h3>📋 ACP <span class="team-badge">문서화</span></h3>
+        <div class="team-content">
+          <div class="content-item">
+            <div class="content-label">업무</div>
+            <div class="content-text">문서화, 데이터 수집 및 정제</div>
+          </div>
+          <div class="content-item">
+            <div class="content-label">AI 목표</div>
+            <div class="content-text">글 요약/정리, 스레드→문서화, 데이터 추출</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <h3>📊 DA 전체 <span class="team-badge">분석</span></h3>
+        <div class="team-content">
+          <div class="content-item">
+            <div class="content-label">업무</div>
+            <div class="content-text">커뮤니케이션, 아이디어 발굴, 데이터 분석</div>
+          </div>
+          <div class="content-item">
+            <div class="content-label">AI 목표</div>
+            <div class="content-text">경쟁사/시장 조사, 스펙 질의응답</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <h3>💡 BSP <span class="team-badge">기획</span></h3>
+        <div class="team-content">
+          <div class="content-item">
+            <div class="content-label">업무</div>
+            <div class="content-text">아이디어 발굴, 사업계획 수립</div>
+          </div>
+          <div class="content-item">
+            <div class="content-label">AI 목표</div>
+            <div class="content-text">소통 간소화, 시장 조사, 회의록 작성</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <h3>🔧 IM <span class="team-badge">다기능</span></h3>
+        <div class="team-content">
+          <div class="content-item">
+            <div class="content-label">업무</div>
+            <div class="content-text">문서화, 데이터 수집, 커뮤니케이션</div>
+          </div>
+          <div class="content-item">
+            <div class="content-label">AI 목표</div>
+            <div class="content-text">경쟁사/시장 조사</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <h3>📈 BI <span class="team-badge">데이터</span></h3>
+        <div class="team-content">
+          <div class="content-item">
+            <div class="content-label">업무</div>
+            <div class="content-text">쿼리, 데이터 분석, 권한 승인</div>
+          </div>
+          <div class="content-item">
+            <div class="content-label">AI 목표</div>
+            <div class="content-text">코드 작성 및 분석</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 슬라이드 8: BI팀 AI 지원 전략 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">07 · BI팀 AI 지원 전략</div>
+      <div class="slide-title">추진 방향성 및 <span>실행 계획</span></div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="direction-grid" style="margin-bottom: 40px;">
+      <div class="direction-card">
+        <h3><span class="direction-icon">👤</span>개개인의 업무 효율화</h3>
+        <ul class="direction-list">
+          <li><strong>AI 활용 교육 세션</strong><br>회사 제공 AI 사용법, Claude Code 심화</li>
+          <li><strong>기본 자동화 툴</strong><br>Slack→Wiki 변환, 회의록 생성</li>
+          <li><strong>Ad-hoc 상담 지원</strong><br>개별 팀 맞춤 AI 활용 방안</li>
         </ul>
       </div>
-      <div class="phase phase-mid">
-        <div class="phase-label">MID-TERM · 2~4주</div>
-        <h3>단기 개발 과제</h3>
-        <ul>
-          <li>내부 FAQ Slack 봇</li>
-          <li>경쟁사 리서치 자동화</li>
-          <li>데이터 지표 쿼리 에이전트</li>
+
+      <div class="direction-card">
+        <h3><span class="direction-icon">🏢</span>조직 공유 시스템</h3>
+        <ul class="direction-list">
+          <li><strong>커스텀 AI 툴 제작</strong><br>팀별 요구사항 반영한 전용 툴</li>
+          <li><strong>경쟁사/시장 조사 자동화</strong><br>정기 리서치 시스템 검토</li>
+          <li><strong>데이터 쿼리 에이전트</strong><br>자연어 기반 분석 도구 검토</li>
         </ul>
       </div>
-      <div class="phase phase-long">
-        <div class="phase-label">LONG-TERM · 1~3개월</div>
-        <h3>중장기 인프라</h3>
-        <ul>
-          <li>Slack + Wiki 통합 RAG 검색</li>
-          <li>AI 보안 가이드라인 수립</li>
-          <li>조직 공유 AI 허브 구축</li>
-        </ul>
-      </div>
+    </div>
+
+    <div class="insight-box">
+      <p><span class="highlight">병행 추진</span> — 개인 효율화 도구와 조직 공유 시스템을 동시에 진행하여
+      단기 성과와 중장기 인프라를 함께 구축. 팀별 특성에 맞춘 맞춤형 지원 제공.</p>
     </div>
   </div>
 
@@ -513,7 +741,7 @@
 <div class="nav">
   <button id="prevBtn" onclick="changeSlide(-1)" disabled>&#8592;</button>
   <div class="dots" id="dots"></div>
-  <span class="page-indicator" id="pageIndicator">1 / 7</span>
+  <span class="page-indicator" id="pageIndicator">1 / 8</span>
   <button id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
 </div>
 
